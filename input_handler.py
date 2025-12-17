@@ -1,5 +1,5 @@
+
 import pygame
-from typing import List, Dict, Type
 
 # Constants representing the values that will be added to the angle or power of the bullet, or the movement of the tank
 VALUE_ANGLE_LEFT: float = -0.01
@@ -16,7 +16,7 @@ class Command:
 
     # Abstract method that needs to be implemented in subclasses
     def execute(self, actor):
-        raise NotImplemented
+        raise NotImplementedError
 
 # Class representing the input handler, responsible for handling the user's inputs and returning the corresponding commands
 
@@ -24,7 +24,7 @@ class Command:
 class InputHandler:
     def __init__(self) -> None:
         # Dictionary with the key corresponding to a pygame key constant and the value being the command to be executed
-        self.commands: Dict[int, Type[Command]] = {
+        self.commands: dict[int, type[Command]] = {
             pygame.K_q: ANGLE_LEFT,
             pygame.K_w: POWER_UP,
             pygame.K_e: ANGLE_RIGHT,
@@ -39,21 +39,21 @@ class InputHandler:
             pygame.K_k: POWER_DOWN,
             pygame.K_l: MOVE_RIGHT,
 
-            pygame.K_SPACE: SHOOT
+            pygame.K_SPACE: SHOOT,
         }
 
-    def update(self, events: List[bool]) -> Dict[int, Type[Command]]:
-        '''Returns a dictionary with the keys being the pygame key constants and the values being the commands to be executed, based on the events passed as parameter'''
+    def update(self, events: list[bool]) -> dict[int, type[Command]]:
+        """Returns a dictionary with the keys being the pygame key constants and the values being the commands to be executed, based on the events passed as parameter"""
         return {key: value for key, value in self.commands.items() if events[key]}
 
-    def get_controls_1(self, local_player: bool = True) -> List[int]:
-        '''Returns a list with the keys representing the controls for player 1'''
+    def get_controls_1(self, local_player: bool = True) -> list[int]:
+        """Returns a list with the keys representing the controls for player 1"""
         if local_player:
             return [pygame.K_q, pygame.K_w, pygame.K_e, pygame.K_a, pygame.K_s, pygame.K_d]
         return []
 
-    def get_controls_2(self, local_player: bool = True) -> List[int]:
-        '''Returns a list with the keys representing the controls for player 2'''
+    def get_controls_2(self, local_player: bool = True) -> list[int]:
+        """Returns a list with the keys representing the controls for player 2"""
         if local_player:
             return [pygame.K_u, pygame.K_i, pygame.K_o, pygame.K_j, pygame.K_k, pygame.K_l]
         return []

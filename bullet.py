@@ -1,14 +1,13 @@
 # Standard library imports
 import math
-from typing import Tuple
 
 
 class Bullet:
-    def __init__(self, pos: Tuple[int, int]) -> None:
+    def __init__(self, pos: tuple[int, int]) -> None:
         # Set the acceleration due to gravity
         self.gravity: float = 9.81 * 10
         # Set the initial x and y position of the bullet
-        self.pos: Tuple[int, int] = pos
+        self.pos: tuple[int, int] = pos
         # Set the time step (how often the bullet position is updated)
         self.time_step: float = 0.02
         # Set the initial time
@@ -16,18 +15,18 @@ class Bullet:
         # Set flag to identify bullet is moving or stopped
         self.shooting: bool = False
         # Define bullet last position
-        self.last_pos: Tuple[int, int] = self.pos
+        self.last_pos: tuple[int, int] = self.pos
         # Define bullets hit point
-        self.bullet_hit_position: Tuple[int, int] = self.pos
+        self.bullet_hit_position: tuple[int, int] = self.pos
         # Set bullet angle
         self.angle: float = 0
         # Set bullet power
         self.power: float = 0
         # Set initial velocity
-        self.velocity: Tuple[float, float] = (0, 0)
+        self.velocity: tuple[float, float] = (0, 0)
 
-    def shoot(self, pos: Tuple[int, int], angle: float = -math.pi/4, power: float = 50) -> None:
-        '''Function to reset bullets parameters to be ready to be shot'''
+    def shoot(self, pos: tuple[int, int], angle: float = -math.pi / 4, power: float = 50) -> None:
+        """Function to reset bullets parameters to be ready to be shot"""
         # Redefine bullet to position to tank's position
         self.pos = pos
         # Redefine bullet last position to tank's position
@@ -39,12 +38,12 @@ class Bullet:
         # Set bullet angle
         self.angle: float = angle
         # Set bullet power
-        self.power: float = power*0.75
+        self.power: float = power * 0.75
         # Set initial velocity
-        self.velocity: Tuple[float, float] = (self.power * math.cos(self.angle), self.power * math.sin(self.angle))
+        self.velocity: tuple[float, float] = (self.power * math.cos(self.angle), self.power * math.sin(self.angle))
 
     def update(self) -> None:
-        '''Updates the bullets position according to angle, power and gravity while bullet is on air'''
+        """Updates the bullets position according to angle, power and gravity while bullet is on air"""
         if (self.shooting):
             # Update bullet's last position
             self.last_pos = self.pos
@@ -56,7 +55,7 @@ class Bullet:
             self.time += self.time_step
 
     def set_bullet_hit_position(self, tank_hit=False, pos=None) -> None:
-        '''Updates bullet's hit position'''
+        """Updates bullet's hit position"""
         # Update bullet last position to new position when bullet hits terrain
         if pos:
             self.bullet_hit_position = pos
@@ -65,6 +64,6 @@ class Bullet:
             self.bullet_hit_position = self.pos
 
     def set_pos(self, pos) -> None:
-        '''Updates bullet's position'''
+        """Updates bullet's position"""
         # Update bullet position
         self.pos = pos

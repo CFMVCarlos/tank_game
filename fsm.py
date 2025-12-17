@@ -1,5 +1,4 @@
 from enum import Enum
-from typing import Tuple, List, Dict
 
 # Base class for different states that a tank can be in
 
@@ -43,7 +42,7 @@ class Event(Enum):
 
 
 class FSM:
-    def __init__(self, states: List[State], transitions: Dict[Event, List[Transition]]) -> None:
+    def __init__(self, states: list[State], transitions: dict[Event, list[Transition]]) -> None:
         # List of possible states
         self._states = states
         # Dictionary of possible transitions between states, with the key being the event that triggers the transition
@@ -134,11 +133,11 @@ class Destroyed(State):
 
 
 # List of possible states
-STATES: List[State] = [Idle, Moving, Firing, Reloading, Destroyed]
+STATES: list[State] = [Idle, Moving, Firing, Reloading, Destroyed]
 
 # Dictionary of possible transitions between states, with the key being the event that triggers the transition
 # and the value being a list of Transition objects representing the transitions that can occur from that event
-TRANSITIONS: Dict[Event, List[Transition]] = {
+TRANSITIONS: dict[Event, list[Transition]] = {
     # When the IDLE event is triggered, the tank can transition from the RELOADING state to the IDLE state
     Event.IDLE: [Transition(Reloading, Idle)],
     # When the MOVING event is triggered, the tank can transition from the IDLE state to the MOVING state
@@ -148,5 +147,5 @@ TRANSITIONS: Dict[Event, List[Transition]] = {
     # When the RELOADING event is triggered, the tank can transition from the FIRING state to the RELOADING state
     Event.RELOADING: [Transition(Firing, Reloading)],
     # When the DESTROYED event is triggered, the tank can transition from the IDLE state to the DESTROYED state
-    Event.DESTROYED: [Transition(Idle, Destroyed)]
+    Event.DESTROYED: [Transition(Idle, Destroyed)],
 }
